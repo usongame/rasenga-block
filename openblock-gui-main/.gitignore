@@ -1,0 +1,55 @@
+# Mac OS
+.DS_Store
+
+# Windows
+thumbs.db
+
+# Node.js
+node_modules/
+npm-debug.log*
+npm-*.log
+yarn-debug.log*
+yarn-error.log*
+
+# Lock files (keep package-lock.json for npm)
+pnpm-lock.yaml
+
+# Testing
+/.nyc_output
+/coverage
+.eslintcache
+
+# Build outputs
+/build/
+/dist/
+/.opt-in
+
+# Generated translation files
+/translations/
+/locale/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+
+# OS files
+Thumbs.db
+
+# Temporary folders
+tmp/
+temp/
+
+# Coverage
+coverage/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
