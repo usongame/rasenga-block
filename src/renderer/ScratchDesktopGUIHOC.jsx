@@ -35,6 +35,9 @@ import ElectronStorageHelper from '../common/ElectronStorageHelper';
 
 import showPrivacyPolicy from './showPrivacyPolicy';
 
+// 导入自定义 Logo
+import customLogo from './assets/logo-menu.png';
+
 /**
  * Higher-order component to add desktop logic to the GUI.
  * @param {Component} WrappedComponent - a GUI-like component to wrap.
@@ -186,6 +189,7 @@ const ScratchDesktopGUIHOC = function (WrappedComponent) {
                 canModifyCloudData={false}
                 canSave={false}
                 isScratchDesktop
+                logo={customLogo}
                 onClickAbout={[
                     {
                         title: (<FormattedMessage

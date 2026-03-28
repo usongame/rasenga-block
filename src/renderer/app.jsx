@@ -1,17 +1,17 @@
 import React from 'react';
 import {compose} from 'redux';
-import GUI from 'openblock-gui/src/index';
 
 import AppStateHOC from 'openblock-gui/src/lib/app-state-hoc.jsx';
 
 import ScratchDesktopAppStateHOC from './ScratchDesktopAppStateHOC.jsx';
 import ScratchDesktopGUIHOC from './ScratchDesktopGUIHOC.jsx';
+import CustomGUI from './CustomGUI.jsx';
 import styles from './app.css';
 
 const appTarget = document.getElementById('app');
 appTarget.className = styles.app || 'app';
 
-GUI.setAppElement(appTarget);
+CustomGUI.setAppElement(appTarget);
 
 
 // note that redux's 'compose' function is just being used as a general utility to make
@@ -21,6 +21,6 @@ const WrappedGui = compose(
     ScratchDesktopAppStateHOC,
     AppStateHOC,
     ScratchDesktopGUIHOC
-)(GUI);
+)(CustomGUI);
 
 export default <WrappedGui />;
