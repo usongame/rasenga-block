@@ -10,7 +10,8 @@ module.exports = defaultConfig =>
             useReact: false,
             disableDefaultRulesForExtensions: ['js'],
             babelPaths: [
-                path.resolve(__dirname, 'src', 'main')
+                path.resolve(__dirname, 'src', 'main'),
+                path.resolve(__dirname, 'node_modules', 'fs-extra')
             ]
         }
     );
