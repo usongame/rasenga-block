@@ -4,7 +4,8 @@ import {FormattedMessage} from 'react-intl';
 import classNames from 'classnames';
 
 import AuthModal from './auth-modal.jsx';
-import {isLoggedIn, getUserInfo, getAccessToken} from '../../lib/auth-storage.js';
+import {isLoggedIn, getUserInfo, getAccessToken, saveAuthData} from '../../lib/auth-storage.js';
+import {AuthAPI} from '../../lib/xpni-api.js';
 
 import styles from './auth-entry.css';
 
@@ -20,10 +21,52 @@ const AuthEntry = ({
 
     // 检查登录状态
     useEffect(() => {
-        const checkLoginStatus = () => {
+        const checkLoginStatus = async () => {
             const loggedInStatus = isLoggedIn();
             const info = getUserInfo();
             console.log('AuthEntry checkLoginStatus:', { loggedInStatus, info });
+            
+            if (loggedInStatus) {
+                // 如果有token，尝试从服务器获取最新用户信息
+                try {
+                    const token = getAccessToken();
+                    if (token) {
+                        console.log('Fetching user info from server...');
+                        const result = await AuthAPI.validateToken(token);
+                        console.log('User info from server:', result);
+                        
+                        if (result.success && result.data) {
+                            // 更新本地存储的用户信息
+                            const newUserInfo = {
+                                id: result.data.user_id || info.id,
+                                username: result.data.nickname || info.username,
+                                nickname: result.data.nickname || info.nickname,
+                                avatarUrl: result.data.avatar || info.avatarUrl
+                            };
+                            
+                            // 保存更新后的信息
+                            saveAuthData({
+                                accessToken: token,
+                                refreshToken: '',
+                                user: newUserInfo
+                            });
+                            
+                            setUserInfo(newUserInfo);
+                            setLoggedIn(true);
+                            return;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Failed to fetch user info:', error);
+                    // 如果获取失败（如token过期），清除登录状态
+                    if (error.message && (error.message.includes('过期') || error.message.includes('无效'))) {
+                        setLoggedIn(false);
+                        setUserInfo(null);
+                        return;
+                    }
+                }
+            }
+            
             setLoggedIn(loggedInStatus);
             setUserInfo(info);
         };
@@ -38,8 +81,19 @@ const AuthEntry = ({
             }
         };
         
+        // 监听打开登录对话框的事件
+        const handleOpenLoginModal = () => {
+            console.log('AuthEntry: Opening login modal');
+            setIsAuthModalOpen(true);
+        };
+        
         window.addEventListener('storage', handleStorageChange);
-        return () => window.removeEventListener('storage', handleStorageChange);
+        window.addEventListener('xpni:openLoginModal', handleOpenLoginModal);
+        
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            window.removeEventListener('xpni:openLoginModal', handleOpenLoginModal);
+        };
     }, []);
 
     const handleLogin = async (data) => {

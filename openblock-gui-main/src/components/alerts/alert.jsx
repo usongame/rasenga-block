@@ -59,7 +59,7 @@ const AlertComponent = ({
                     extensionMessage
                 ) : (
                     <FormattedMessage
-                        defaultMessage="OpenBlock lost connection to {extensionName}."
+                        defaultMessage="Xpniblock与{extensionName}的连接已断开。"
                         description="Message indicating that an extension peripheral has been disconnected"
                         id="gui.alerts.lostPeripheralConnection"
                         values={{

@@ -133,7 +133,7 @@ const ariaMessages = defineMessages({
     },
     wiki: {
         id: 'gui.menuBar.wiki',
-        defaultMessage: 'Wiki',
+        defaultMessage: '文档',
         description: 'accessibility text for the wiki button'
     }
 });
@@ -232,7 +232,8 @@ class MenuBar extends React.Component {
             'handleProgramModeUpdate',
             'handleScreenshot',
             'handleCheckUpdate',
-            'handleClearCache'
+            'handleClearCache',
+            'handleClickTutorials'
         ]);
         this.state = {
             isOverflow: false
@@ -309,6 +310,18 @@ class MenuBar extends React.Component {
         } else {
             waitForUpdate(false); // immediately transition to project page
         }
+    }
+    handleClickTutorials () {
+        // 检查是否已登录
+        if (!isLoggedIn()) {
+            // 未登录，触发登录流程
+            console.log('User not logged in, opening login modal...');
+            // 触发登录事件，让 AuthEntry 组件打开登录对话框
+            window.dispatchEvent(new CustomEvent('xpni:openLoginModal'));
+            return;
+        }
+        // 已登录，打开教程
+        this.props.onOpenTipLibrary();
     }
     handleClickShare (waitForUpdate) {
         if (!this.props.isShared) {
@@ -569,7 +582,7 @@ class MenuBar extends React.Component {
                 <div className={styles.mainMenu}>
                     <div className={classNames(styles.menuBarItem)}>
                         <img
-                            alt="OpenBlock"
+                            alt="Xpniblock"
                             className={classNames(styles.openblockLogo, {
                                 [styles.clickable]: typeof this.props.onClickLogo !== 'undefined'
                             })}
@@ -839,7 +852,7 @@ class MenuBar extends React.Component {
                     <div
                         aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
                         className={classNames(styles.menuBarItem, styles.hoverable)}
-                        onClick={this.props.onOpenTipLibrary}
+                        onClick={this.handleClickTutorials}
                     >
                         <img
                             className={styles.helpIcon}
@@ -1159,7 +1172,8 @@ const mapDispatchToProps = dispatch => ({
 
             if (data.method === 'phone') {
                 loginParams.phone = data.phone;
-                loginParams.verificationCode = data.verificationCode;
+                // 后端期望的验证码字段是 'code' 而不是 'verificationCode'
+                loginParams.code = data.verificationCode;
             } else {
                 loginParams.email = data.email;
                 loginParams.password = data.password;
@@ -1169,15 +1183,18 @@ const mapDispatchToProps = dispatch => ({
             const result = await AuthAPI.login(loginParams);
             console.log('Login success:', result);
 
+            // 后端返回的数据在 data 字段中
+            const responseData = result.data || {};
+            
             // 保存认证信息到本地存储
             const authData = {
-                accessToken: result.accessToken,
-                refreshToken: result.refreshToken,
-                user: result.userInfo || {
-                    id: result.userId,
-                    username: result.username || result.phone || result.email,
-                    nickname: result.nickname || result.username || result.phone || result.email,
-                    avatarUrl: result.avatarUrl
+                accessToken: responseData.access_token,
+                refreshToken: responseData.refresh_token || '',
+                user: {
+                    id: responseData.user_id,
+                    username: responseData.nickname || loginParams.phone || loginParams.email,
+                    nickname: responseData.nickname,
+                    avatarUrl: responseData.avatar
                 }
             };
 
@@ -1189,7 +1206,8 @@ const mapDispatchToProps = dispatch => ({
             return true;
         } catch (error) {
             console.error('登录失败:', error);
-            return false;
+            // 抛出错误，让UI层显示错误信息
+            throw error;
         }
     },
     onLogOut: async () => {

@@ -1,9 +1,9 @@
 {
   "name": "xpni-block",
-  "productName": "XpniBlock",
+  "productName": "象皮泥",
   "description": "OpenBlock as a self-contained desktop application",
   "author": "xpni.cn Team <contact@xpni.cn> (https://xpni.cn/)",
-  "version": "2.6.3",
+  "version": "1.0.9",
   "license": "MIT",
   "scripts": {
     "postinstall": "electron-builder install-app-deps",

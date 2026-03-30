@@ -53,7 +53,12 @@ export const AuthAPI = {
      * @returns {Promise<Object>} - 返回包含accessToken、refreshToken和userInfo的数据
      */
     login: function(params) {
-        return request('auth', '/auth', params);
+        // 添加 action 参数，后端需要 action="auth" 来识别登录操作
+        const body = {
+            action: 'auth',
+            ...params
+        };
+        return request('auth', '/auth', body);
     },
 
     /**

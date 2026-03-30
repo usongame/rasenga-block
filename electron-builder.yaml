@@ -10,10 +10,10 @@ files:
   - "dist/**/*"
 
 appId: com.xpni.block
-productName: "XpniBlock"
+productName: "象皮泥"
 publish:
   - provider: github
-artifactName: "XpniBlock_v${version}_${os}_${arch}.${ext}"
+artifactName: "象皮泥_v${version}_${os}_${arch}.${ext}"
 
 fileAssociations:
   ext: ob
@@ -34,12 +34,11 @@ mac:
   gatekeeperAssess: true
   hardenedRuntime: true
   icon: buildResources/OpenBlockDesktop.icns
-  provisioningProfile: embedded.provisionprofile
   target:
     - dmg
     # - mas
 dmg:
-  title: "XpniBlock_${version}"
+  title: "象皮泥_${version}"
   format: UDRO
 # mas:
 #   category: public.app-category.education

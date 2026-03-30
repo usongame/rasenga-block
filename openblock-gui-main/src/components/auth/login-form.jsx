@@ -284,6 +284,12 @@ const LoginForm = ({
                 )}
             </div>
 
+            {errors.submit && (
+                <div className={styles.errorMessage}>
+                    {errors.submit}
+                </div>
+            )}
+
             <button
                 type="submit"
                 className={styles.submitButton}
