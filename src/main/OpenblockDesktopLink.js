@@ -48,18 +48,76 @@ class OpenblockDesktopLink {
 
     installDriver (callback = null) {
         const driverPath = path.join(this.appPath, 'drivers');
+
+        // Check if drivers directory exists
+        if (!fs.existsSync(driverPath)) {
+            console.error(`Drivers directory not found: ${driverPath}`);
+            if (callback) {
+                callback(new Error(`Drivers directory not found: ${driverPath}`));
+            }
+            return;
+        }
+
         if ((os.platform() === 'win32') && (os.arch() === 'x64')) {
-            execFile('install_x64.bat', [], {cwd: driverPath});
+            const batPath = path.join(driverPath, 'install_x64.bat');
+            if (!fs.existsSync(batPath)) {
+                console.error(`Driver installer not found: ${batPath}`);
+                if (callback) callback(new Error('Driver installer not found'));
+                return;
+            }
+            execFile(batPath, [], {cwd: driverPath}, (error) => {
+                if (error) {
+                    console.error('Failed to install driver:', error);
+                }
+                if (callback) callback(error);
+            });
         } else if ((os.platform() === 'win32') && (os.arch() === 'ia32')) {
-            execFile('install_x86.bat', [], {cwd: driverPath});
+            const batPath = path.join(driverPath, 'install_x86.bat');
+            if (!fs.existsSync(batPath)) {
+                console.error(`Driver installer not found: ${batPath}`);
+                if (callback) callback(new Error('Driver installer not found'));
+                return;
+            }
+            execFile(batPath, [], {cwd: driverPath}, (error) => {
+                if (error) {
+                    console.error('Failed to install driver:', error);
+                }
+                if (callback) callback(error);
+            });
         } else if ((os.platform() === 'darwin')) {
-            spawn('sh', ['install.sh'], {shell: true, cwd: driverPath});
+            const installScript = path.join(driverPath, 'install.sh');
+            if (!fs.existsSync(installScript)) {
+                console.error(`Driver installer not found: ${installScript}`);
+                if (callback) callback(new Error('Driver installer not found'));
+                return;
+            }
+            // Use execFile instead of spawn with shell:true for better error handling
+            const child = spawn('/bin/sh', [installScript], {
+                cwd: driverPath,
+                detached: true,
+                stdio: 'ignore'
+            });
+            child.on('error', (error) => {
+                console.error('Failed to spawn driver installer:', error);
+                if (callback) callback(error);
+            });
+            child.unref();
+            // Callback immediately since the script runs independently
+            if (callback) callback(null);
         } else if ((os.platform() === 'linux')) {
-            sudo.exec(`sh ${path.join(driverPath, 'linux_setup.sh')} yang`, {name: productName},
+            const setupScript = path.join(driverPath, 'linux_setup.sh');
+            if (!fs.existsSync(setupScript)) {
+                console.error(`Driver installer not found: ${setupScript}`);
+                if (callback) callback(new Error('Driver installer not found'));
+                return;
+            }
+            sudo.exec(`sh "${setupScript}" yang`, {name: productName},
                 error => {
-                    if (error) throw error;
+                    if (error) {
+                        console.error('Failed to install driver:', error);
+                    }
                     if (callback) {
-                        callback();
+                        callback(error);
                     }
                 }
             );

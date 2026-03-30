@@ -943,6 +943,17 @@ class MenuBar extends React.Component {
                             </MenuBarMenu>
                         </div>
                     ) : null}
+                    <Divider className={classNames(styles.divider)} />
+                    <div className={classNames(styles.menuBarItem, styles.authEntryContainer)}>
+                        <AuthEntry
+                            isLoggedIn={this.props.sessionExists && this.props.username}
+                            username={this.props.username}
+                            avatarUrl={this.props.userThumbnailUrl}
+                            onLogin={this.props.onAuthLogin}
+                            onSendVerificationCode={this.props.onAuthSendCode}
+                            onLogout={this.props.onLogOut}
+                        />
+                    </div>
                 </div>
                 { (typeof this.props.onClickAbout === 'function') ? aboutButton : null}
             </Box>
@@ -1009,6 +1020,9 @@ MenuBar.propTypes = {
     onClickClearCache: PropTypes.func,
     onClickInstallDriver: PropTypes.func,
     onLogOut: PropTypes.func,
+    onAuthLogin: PropTypes.func.isRequired,
+    onAuthSendCode: PropTypes.func.isRequired,
+    userThumbnailUrl: PropTypes.string,
     onNoPeripheralIsConnected: PropTypes.func.isRequired,
     onOpenRegistration: PropTypes.func,
     onOpenTipLibrary: PropTypes.func,
@@ -1080,6 +1094,7 @@ const mapStateToProps = (state, ownProps) => {
         realtimeConnection: state.scratchGui.connectionModal.realtimeConnection,
         sessionExists: state.session && typeof state.session.session !== 'undefined',
         username: user ? user.username : null,
+        userThumbnailUrl: user ? user.thumbnailUrl : null,
         userOwnsProject: ownProps.authorUsername && user &&
             (ownProps.authorUsername === user.username),
         stageSizeMode: state.scratchGui.stageSize.stageSize,
@@ -1133,7 +1148,22 @@ const mapDispatchToProps = dispatch => ({
     onWorkspaceIsEmpty: () => showAlertWithTimeout(dispatch, 'workspaceIsEmpty'),
     onWorkspaceIsNotEmpty: () => showAlertWithTimeout(dispatch, 'workspaceIsNotEmpty'),
     onOpenDeviceLibrary: () => dispatch(openDeviceLibrary()),
-    onDeviceIsEmpty: () => showAlertWithTimeout(dispatch, 'selectADeviceFirst')
+    onDeviceIsEmpty: () => showAlertWithTimeout(dispatch, 'selectADeviceFirst'),
+    onAuthLogin: async (data) => {
+        // TODO: 实现登录逻辑
+        console.log('Login:', data);
+        return true;
+    },
+    onAuthRegister: async (data) => {
+        // TODO: 实现注册逻辑
+        console.log('Register:', data);
+        return true;
+    },
+    onAuthSendCode: async ({ method, target }) => {
+        // TODO: 实现发送验证码逻辑
+        console.log('Send code:', method, target);
+        return true;
+    }
 });
 
 export default compose(

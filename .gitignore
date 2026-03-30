@@ -39,7 +39,7 @@ yarn.lock
 # /external-resources/
 /tools/
 /firmwares/
-/drivers/
+# /drivers/  # Drivers folder is now tracked for driver installation scripts
 /tmp/
 
 # generated translation files
@@ -116,7 +116,7 @@ temp/
 *.zip
 
 # Install scripts that are downloaded
-install.sh
+# install.sh  # Commented out to allow tracking install.sh in drivers folder
 
 # Electron specific
 out/

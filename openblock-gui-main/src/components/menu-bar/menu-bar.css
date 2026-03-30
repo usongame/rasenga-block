@@ -324,3 +324,8 @@
   padding-right: 2rem;
 }
 
+.auth-entry-container {
+    display: flex;
+    align-items: center;
+}
+

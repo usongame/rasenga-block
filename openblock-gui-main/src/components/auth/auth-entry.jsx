@@ -12,7 +12,6 @@ const AuthEntry = ({
     username,
     avatarUrl,
     onLogin,
-    onRegister,
     onSendVerificationCode,
     onLogout,
     className
@@ -21,14 +20,6 @@ const AuthEntry = ({
 
     const handleLogin = async (data) => {
         const success = await onLogin(data);
-        if (success) {
-            setIsAuthModalOpen(false);
-        }
-        return success;
-    };
-
-    const handleRegister = async (data) => {
-        const success = await onRegister(data);
         if (success) {
             setIsAuthModalOpen(false);
         }
@@ -67,16 +58,15 @@ const AuthEntry = ({
                 onClick={() => setIsAuthModalOpen(true)}
             >
                 <FormattedMessage
-                    defaultMessage="登录 / 注册"
-                    description="Login/Register button"
-                    id="gui.auth.loginRegister"
+                    defaultMessage="登录"
+                    description="Login button"
+                    id="gui.auth.login"
                 />
             </button>
             <AuthModal
                 isOpen={isAuthModalOpen}
                 onClose={() => setIsAuthModalOpen(false)}
                 onLogin={handleLogin}
-                onRegister={handleRegister}
                 onSendVerificationCode={onSendVerificationCode}
             />
         </React.Fragment>
@@ -88,7 +78,6 @@ AuthEntry.propTypes = {
     username: PropTypes.string,
     avatarUrl: PropTypes.string,
     onLogin: PropTypes.func.isRequired,
-    onRegister: PropTypes.func.isRequired,
     onSendVerificationCode: PropTypes.func.isRequired,
     onLogout: PropTypes.func.isRequired,
     className: PropTypes.string

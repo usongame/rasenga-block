@@ -36,16 +36,18 @@ const LoginForm = ({
             } else if (!/^1[3-9]\d{9}$/.test(formData.phone)) {
                 newErrors.phone = '请输入有效的手机号';
             }
+            if (!formData.verificationCode) {
+                newErrors.verificationCode = '请输入验证码';
+            }
         } else {
             if (!formData.email) {
                 newErrors.email = '请输入邮箱';
             } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
                 newErrors.email = '请输入有效的邮箱地址';
             }
-        }
-
-        if (!formData.password && !formData.verificationCode) {
-            newErrors.password = '请输入密码或验证码';
+            if (!formData.password) {
+                newErrors.password = '请输入密码';
+            }
         }
 
         setErrors(newErrors);
@@ -68,17 +70,16 @@ const LoginForm = ({
     };
 
     const handleSendCode = async () => {
-        const target = loginMethod === LoginMethod.PHONE ? formData.phone : formData.email;
-        if (!target) {
+        if (!formData.phone) {
             setErrors({
                 ...errors,
-                [loginMethod]: loginMethod === LoginMethod.PHONE ? '请先输入手机号' : '请先输入邮箱'
+                phone: '请先输入手机号'
             });
             return false;
         }
         return await onSendVerificationCode({
-            method: loginMethod,
-            target
+            method: LoginMethod.PHONE,
+            target: formData.phone
         });
     };
 
@@ -130,98 +131,93 @@ const LoginForm = ({
 
             <div className={styles.inputGroup}>
                 {loginMethod === LoginMethod.PHONE ? (
-                    <div className={styles.field}>
-                        <label className={styles.label}>
-                            <FormattedMessage
-                                defaultMessage="手机号"
-                                description="Phone number label"
-                                id="gui.auth.phoneNumber"
+                    <>
+                        <div className={styles.field}>
+                            <label className={styles.label}>
+                                <FormattedMessage
+                                    defaultMessage="手机号"
+                                    description="Phone number label"
+                                    id="gui.auth.phoneNumber"
+                                />
+                            </label>
+                            <Input
+                                type="tel"
+                                placeholder="请输入手机号"
+                                value={formData.phone}
+                                onChange={(e) => handleInputChange('phone', e.target.value)}
+                                className={classNames(
+                                    styles.input,
+                                    {[styles.inputError]: errors.phone}
+                                )}
                             />
-                        </label>
-                        <Input
-                            type="tel"
-                            placeholder="请输入手机号"
-                            value={formData.phone}
-                            onChange={(e) => handleInputChange('phone', e.target.value)}
-                            className={classNames(
-                                styles.input,
-                                {[styles.inputError]: errors.phone}
+                            {errors.phone && (
+                                <span className={styles.errorText}>{errors.phone}</span>
                             )}
-                        />
-                        {errors.phone && (
-                            <span className={styles.errorText}>{errors.phone}</span>
-                        )}
-                    </div>
+                        </div>
+                        <div className={styles.field}>
+                            <label className={styles.label}>
+                                <FormattedMessage
+                                    defaultMessage="验证码"
+                                    description="Verification code label"
+                                    id="gui.auth.verificationCode"
+                                />
+                            </label>
+                            <VerificationCode
+                                value={formData.verificationCode}
+                                onChange={(value) => handleInputChange('verificationCode', value)}
+                                onSend={handleSendCode}
+                                error={errors.verificationCode}
+                            />
+                        </div>
+                    </>
                 ) : (
-                    <div className={styles.field}>
-                        <label className={styles.label}>
-                            <FormattedMessage
-                                defaultMessage="邮箱"
-                                description="Email label"
-                                id="gui.auth.email"
+                    <>
+                        <div className={styles.field}>
+                            <label className={styles.label}>
+                                <FormattedMessage
+                                    defaultMessage="邮箱"
+                                    description="Email label"
+                                    id="gui.auth.email"
+                                />
+                            </label>
+                            <Input
+                                type="email"
+                                placeholder="请输入邮箱"
+                                value={formData.email}
+                                onChange={(e) => handleInputChange('email', e.target.value)}
+                                className={classNames(
+                                    styles.input,
+                                    {[styles.inputError]: errors.email}
+                                )}
                             />
-                        </label>
-                        <Input
-                            type="email"
-                            placeholder="请输入邮箱"
-                            value={formData.email}
-                            onChange={(e) => handleInputChange('email', e.target.value)}
-                            className={classNames(
-                                styles.input,
-                                {[styles.inputError]: errors.email}
+                            {errors.email && (
+                                <span className={styles.errorText}>{errors.email}</span>
                             )}
-                        />
-                        {errors.email && (
-                            <span className={styles.errorText}>{errors.email}</span>
-                        )}
-                    </div>
+                        </div>
+                        <div className={styles.field}>
+                            <label className={styles.label}>
+                                <FormattedMessage
+                                    defaultMessage="密码"
+                                    description="Password label"
+                                    id="gui.auth.password"
+                                />
+                            </label>
+                            <Input
+                                type="password"
+                                placeholder="请输入密码"
+                                value={formData.password}
+                                onChange={(e) => handleInputChange('password', e.target.value)}
+                                className={classNames(
+                                    styles.input,
+                                    {[styles.inputError]: errors.password}
+                                )}
+                            />
+                            {errors.password && (
+                                <span className={styles.errorText}>{errors.password}</span>
+                            )}
+                        </div>
+                    </>
                 )}
-
-                <div className={styles.field}>
-                    <label className={styles.label}>
-                        <FormattedMessage
-                            defaultMessage="密码"
-                            description="Password label"
-                            id="gui.auth.password"
-                        />
-                    </label>
-                    <Input
-                        type="password"
-                        placeholder="请输入密码"
-                        value={formData.password}
-                        onChange={(e) => handleInputChange('password', e.target.value)}
-                        className={classNames(
-                            styles.input,
-                            {[styles.inputError]: errors.password}
-                        )}
-                    />
-                </div>
-
-                <div className={styles.divider}>
-                    <span className={styles.dividerText}>
-                        <FormattedMessage
-                            defaultMessage="或使用验证码"
-                            description="Or use verification code"
-                            id="gui.auth.orUseCode"
-                        />
-                    </span>
-                </div>
-
-                <div className={styles.field}>
-                    <label className={styles.label}>
-                        <FormattedMessage
-                            defaultMessage="验证码"
-                            description="Verification code label"
-                            id="gui.auth.verificationCode"
-                        />
-                    </label>
-                    <VerificationCode
-                        value={formData.verificationCode}
-                        onChange={(value) => handleInputChange('verificationCode', value)}
-                        onSend={handleSendCode}
-                        error={errors.verificationCode}
-                    />
-                </div>
             </div>
 
             <button
@@ -244,14 +240,12 @@ const LoginForm = ({
                 )}
             </button>
 
-            <div className={styles.links}>
-                <a href="#" className={styles.link}>
-                    <FormattedMessage
-                        defaultMessage="忘记密码？"
-                        description="Forgot password link"
-                        id="gui.auth.forgotPassword"
-                    />
-                </a>
+            <div className={styles.tips}>
+                <FormattedMessage
+                    defaultMessage="未注册的手机号/邮箱，登录时将自动注册"
+                    description="Auto register tip"
+                    id="gui.auth.autoRegisterTip"
+                />
             </div>
         </form>
     );

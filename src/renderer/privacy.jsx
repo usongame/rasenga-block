@@ -129,7 +129,7 @@ const PrivacyElement = () => (
                     href="mailto:help@xpni.cn"
                     target="_blank"
                     rel="noopener noreferrer"
-                >help@xpni.cn</a> for assistance.
+                >sellmycode@163.com</a> for assistance.
             </li>
             <li>
                 <b>Restriction Of Processing</b> - You may request that we restrict processing of your Information
@@ -154,7 +154,7 @@ const PrivacyElement = () => (
                 href="mailto:help@xpni.cn"
                 target="_blank"
                 rel="noopener noreferrer"
-            >help@xpni.cn</a> for assistance.
+            >sellmycode@163.com</a> for assistance.
         </p>
         <h2>Data Retention</h2>
         <p>
@@ -201,16 +201,16 @@ const PrivacyElement = () => (
                 href="mailto:help@xpni.cn"
                 target="_blank"
                 rel="noopener noreferrer"
-            >help@xpni.cn</a> or via mail at:
+            >sellmycode@163.com</a> or via mail at:
         </p>
         <div className="vcard">
             <div className="org">xpniBlock Team</div>
             <div className="fn">ATTN: Privacy Policy</div>
             <div className="adr">
                 <div className="street-address">Datang Street</div>
-                <span className="locality">Shenzhen</span>, <span className="region">Guangdong</span> <span
+                <span className="locality">Suzhou</span>, <span className="region">Jiangsu</span> <span
                     className="postal-code"
-                >518110</span>
+                >215000</span>
             </div>
         </div>
     </div>
