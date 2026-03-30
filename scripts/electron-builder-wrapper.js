@@ -201,8 +201,7 @@ const parseArgs = function () {
         break;
     case 'dist':
         doPackage = true;
-        // doSign = true; // skip code signing before getting a certificate
-        doSign = false;
+        doSign = true; // enable code signing
         doPublish = false;
         break;
     case 'publish':
