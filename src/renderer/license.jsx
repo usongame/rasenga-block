@@ -4,15 +4,15 @@ import styles from './license.css';
 import bindAll from 'lodash.bindall';
 import classNames from 'classnames';
 
-import OpenBlockLogo from '../icon/logo-OpenBlockcc.svg';
+import xpniLogo from '../icon/logo-xpni.png';
 import ScratchFoundationLogo from '../icon/logo-ScratchFoundation.svg';
 
 // Insert new copyright information at the head of the array to add a new copyright notice
 const copyrightInformations = [
     {
-        id: 'OpenBlock.cc',
-        logo: OpenBlockLogo,
-        link: 'https://www.openblock.cc/',
+        id: 'xpni.cn',
+        logo: xpniLogo,
+        link: 'https://xpni.cn/',
         license: 'MIT'
     },
     {

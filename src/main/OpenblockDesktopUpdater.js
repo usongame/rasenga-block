@@ -194,7 +194,7 @@ class OpenblockDesktopUpdater {
         });
 
         const openDownloadPage = () => {
-            shell.openExternal('https://wiki.openblock.cc/install-desktop-version');
+            shell.openExternal('https://xpni.cn/docs');
         };
 
         if (process.platform === 'darwin') {

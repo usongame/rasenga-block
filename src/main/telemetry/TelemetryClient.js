@@ -21,7 +21,7 @@ import {
   */
 const TelemetryServerURL = Object.freeze({
     staging: '',
-    production: 'https://telemetry.openblock.cc/'
+    production: 'https://telemetry.xpni.cn/'
 });
 const DefaultServerURL = (
     process.env.NODE_ENV === 'production' ? TelemetryServerURL.production : TelemetryServerURL.staging
