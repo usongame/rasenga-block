@@ -39,6 +39,8 @@ import {
     openConnectionModal,
     openDeviceLibrary
 } from '../../reducers/modals';
+import {AuthAPI} from '../../lib/xpni-api.js';
+import {saveAuthData, clearAuthData, getUserInfo, isLoggedIn, getAccessToken} from '../../lib/auth-storage.js';
 import {setPlayer} from '../../reducers/mode';
 import {
     autoUpdateProject,
@@ -946,9 +948,6 @@ class MenuBar extends React.Component {
                     <Divider className={classNames(styles.divider)} />
                     <div className={classNames(styles.menuBarItem, styles.authEntryContainer)}>
                         <AuthEntry
-                            isLoggedIn={this.props.sessionExists && this.props.username}
-                            username={this.props.username}
-                            avatarUrl={this.props.userThumbnailUrl}
                             onLogin={this.props.onAuthLogin}
                             onSendVerificationCode={this.props.onAuthSendCode}
                             onLogout={this.props.onLogOut}
@@ -1092,9 +1091,9 @@ const mapStateToProps = (state, ownProps) => {
         loginMenuOpen: loginMenuOpen(state),
         projectTitle: state.scratchGui.projectTitle,
         realtimeConnection: state.scratchGui.connectionModal.realtimeConnection,
-        sessionExists: state.session && typeof state.session.session !== 'undefined',
-        username: user ? user.username : null,
-        userThumbnailUrl: user ? user.thumbnailUrl : null,
+        sessionExists: isLoggedIn() || (state.session && typeof state.session.session !== 'undefined'),
+        username: isLoggedIn() ? (getUserInfo() ? getUserInfo().nickname || getUserInfo().username : null) : (user ? user.username : null),
+        userThumbnailUrl: isLoggedIn() ? (getUserInfo() ? getUserInfo().avatarUrl : null) : (user ? user.thumbnailUrl : null),
         userOwnsProject: ownProps.authorUsername && user &&
             (ownProps.authorUsername === user.username),
         stageSizeMode: state.scratchGui.stageSize.stageSize,
@@ -1150,19 +1149,75 @@ const mapDispatchToProps = dispatch => ({
     onOpenDeviceLibrary: () => dispatch(openDeviceLibrary()),
     onDeviceIsEmpty: () => showAlertWithTimeout(dispatch, 'selectADeviceFirst'),
     onAuthLogin: async (data) => {
-        // TODO: 实现登录逻辑
-        console.log('Login:', data);
-        return true;
+        try {
+            console.log('Login request:', data);
+
+            // 构建登录参数
+            const loginParams = {
+                method: data.method
+            };
+
+            if (data.method === 'phone') {
+                loginParams.phone = data.phone;
+                loginParams.verificationCode = data.verificationCode;
+            } else {
+                loginParams.email = data.email;
+                loginParams.password = data.password;
+            }
+
+            // 调用登录API
+            const result = await AuthAPI.login(loginParams);
+            console.log('Login success:', result);
+
+            // 保存认证信息到本地存储
+            const authData = {
+                accessToken: result.accessToken,
+                refreshToken: result.refreshToken,
+                user: result.userInfo || {
+                    id: result.userId,
+                    username: result.username || result.phone || result.email,
+                    nickname: result.nickname || result.username || result.phone || result.email,
+                    avatarUrl: result.avatarUrl
+                }
+            };
+
+            saveAuthData(authData);
+
+            // 触发storage事件，通知AuthEntry组件更新状态
+            window.dispatchEvent(new StorageEvent('storage', { key: 'xpni_auth' }));
+
+            return true;
+        } catch (error) {
+            console.error('登录失败:', error);
+            return false;
+        }
     },
-    onAuthRegister: async (data) => {
-        // TODO: 实现注册逻辑
-        console.log('Register:', data);
-        return true;
+    onLogOut: async () => {
+        try {
+            const token = getAccessToken();
+            if (token) {
+                // 调用登出API
+                await AuthAPI.deleteToken(token);
+            }
+        } catch (error) {
+            console.error('登出API调用失败:', error);
+        } finally {
+            // 清除本地存储的认证信息
+            clearAuthData();
+            // 触发storage事件，通知AuthEntry组件更新状态
+            window.dispatchEvent(new StorageEvent('storage', { key: 'xpni_auth' }));
+        }
     },
     onAuthSendCode: async ({ method, target }) => {
-        // TODO: 实现发送验证码逻辑
-        console.log('Send code:', method, target);
-        return true;
+        try {
+            console.log('Sending code request via AuthAPI:', { method, target });
+            const result = await AuthAPI.sendCode(method, target, 'login');
+            console.log('AuthAPI.sendCode result:', result);
+            return true;
+        } catch (error) {
+            console.error('发送验证码请求失败:', error);
+            return false;
+        }
     }
 });
 

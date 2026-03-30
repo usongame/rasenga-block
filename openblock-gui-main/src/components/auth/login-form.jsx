@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {FormattedMessage} from 'react-intl';
 import classNames from 'classnames';
 
@@ -26,6 +26,8 @@ const LoginForm = ({
     });
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
+    const [loginSuccess, setLoginSuccess] = useState(false);
+    const [countdown, setCountdown] = useState(3);
 
     const validateForm = () => {
         const newErrors = {};
@@ -60,9 +62,22 @@ const LoginForm = ({
 
         setIsLoading(true);
         try {
-            await onSubmit({
+            const success = await onSubmit({
                 method: loginMethod,
                 ...formData
+            });
+            if (success) {
+                setLoginSuccess(true);
+            } else {
+                setErrors({
+                    ...errors,
+                    submit: '登录失败，请检查输入信息'
+                });
+            }
+        } catch (error) {
+            setErrors({
+                ...errors,
+                submit: error.message || '登录失败，请重试'
             });
         } finally {
             setIsLoading(false);
@@ -77,10 +92,15 @@ const LoginForm = ({
             });
             return false;
         }
-        return await onSendVerificationCode({
-            method: LoginMethod.PHONE,
-            target: formData.phone
-        });
+        try {
+            const result = await onSendVerificationCode({
+                method: LoginMethod.PHONE,
+                target: formData.phone
+            });
+            return result;
+        } catch (error) {
+            return false;
+        }
     };
 
     const handleInputChange = (field, value) => {
@@ -95,6 +115,50 @@ const LoginForm = ({
             });
         }
     };
+
+    // 登录成功后的倒计时
+    useEffect(() => {
+        let timer;
+        if (loginSuccess && countdown > 0) {
+            timer = setInterval(() => {
+                setCountdown(prev => prev - 1);
+            }, 1000);
+        }
+        return () => {
+            if (timer) clearInterval(timer);
+        };
+    }, [loginSuccess, countdown]);
+
+    // 登录成功后显示成功界面
+    if (loginSuccess) {
+        return (
+            <div className={styles.successContainer}>
+                <div className={styles.successIcon}>✓</div>
+                <div className={styles.successTitle}>
+                    <FormattedMessage
+                        defaultMessage="登录成功"
+                        description="Login success title"
+                        id="gui.auth.loginSuccess"
+                    />
+                </div>
+                <div className={styles.successMessage}>
+                    <FormattedMessage
+                        defaultMessage="欢迎回来！"
+                        description="Login success message"
+                        id="gui.auth.welcomeBack"
+                    />
+                </div>
+                <div className={styles.countdownText}>
+                    <FormattedMessage
+                        defaultMessage="{countdown}秒后自动关闭..."
+                        description="Auto close countdown"
+                        id="gui.auth.autoCloseCountdown"
+                        values={{countdown}}
+                    />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>

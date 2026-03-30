@@ -138,3 +138,62 @@
     color: $text-primary-transparent;
     margin-top: -0.5rem;
 }
+
+/* 登录成功状态样式 */
+.success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    text-align: center;
+    min-height: 300px;
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #52c41a 0%, #389e0d 100%);
+    color: white;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(82, 196, 26, 0.4);
+    animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 0.5rem;
+}
+
+.success-message {
+    font-size: 1rem;
+    color: $text-primary-transparent;
+    margin-bottom: 2rem;
+}
+
+.countdown-text {
+    font-size: 0.875rem;
+    color: $motion-primary;
+    font-weight: 500;
+}
