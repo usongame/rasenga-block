@@ -21,7 +21,7 @@ const pca9685 = formatMessage => ({
     library: 'lib',
     official: true,
     tags: ['other'],
-    helpLink: 'https://wiki.openblock.cc'
+    helpLink: 'https://xpni.cn/docs'
 });
 
 module.exports = pca9685;

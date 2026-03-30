@@ -24,6 +24,7 @@ import ProjectTitleInput from './project-title-input.jsx';
 import AuthorInfo from './author-info.jsx';
 import AccountNav from '../../containers/account-nav.jsx'; // eslint-disable-line no-unused-vars
 import LoginDropdown from './login-dropdown.jsx'; // eslint-disable-line no-unused-vars
+import AuthEntry from '../auth/auth-entry.jsx';
 import SB3Downloader from '../../containers/sb3-downloader.jsx';
 import DeletionRestorer from '../../containers/deletion-restorer.jsx';
 import TurboMode from '../../containers/turbo-mode.jsx';
@@ -349,10 +350,10 @@ class MenuBar extends React.Component {
         }
     }
     handleClickOpenCommunity () {
-        window.open('https://community.openblock.cc');
+        window.open('https://xpni.cn/community');
     }
     handleClickOpenWiki () {
-        window.open('https://wiki.openblock.cc');
+        window.open('https://xpni.cn/docs');
     }
     restoreOptionMessage (deletedItem) {
         switch (deletedItem) {

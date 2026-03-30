@@ -18,7 +18,7 @@ const oled = formatMessage => ({
     library: 'lib',
     official: true,
     tags: ['display'],
-    helpLink: 'https://wiki.openblock.cc'
+    helpLink: 'https://xpni.cn/docs'
 });
 
 module.exports = oled;

@@ -139,7 +139,7 @@ const deviceData = [
         programMode: ['realtime', 'upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/arduino-uno'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/arduino-uno'
     },
     {
         name: 'Arduino Nano',
@@ -175,7 +175,7 @@ const deviceData = [
         programMode: ['realtime', 'upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/arduino-nano'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/arduino-nano'
     },
     {
         name: 'Arduino Leonardo',
@@ -211,7 +211,7 @@ const deviceData = [
         programMode: ['upload'], // due to the software serilport realtim mode is unstable
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/arduino-leonardo'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/arduino-leonardo'
     },
     {
         name: 'Arduino Mega 2560',
@@ -247,7 +247,7 @@ const deviceData = [
         programMode: ['realtime', 'upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/arduino-mega-2560-r3'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/arduino-mega-2560-r3'
     },
     {
         name: 'Arduino Uno R4 Minima',
@@ -283,7 +283,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/arduino-uno-r4-minima'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/arduino-uno-r4-minima'
     },
     {
         name: 'Arduino Uno R4 WiFi',
@@ -319,7 +319,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/arduino-uno-r4-wifi'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/arduino-uno-r4-wifi'
     },
     {
         name: 'ESP32',
@@ -355,7 +355,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/esp32'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/esp32'
     },
     {
         name: 'ESP32-S3',
@@ -391,7 +391,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/esp32s3'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/esp32s3'
     },
     {
         name: 'NodeMCU',
@@ -428,7 +428,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/esp8266'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/esp8266'
     },
     {
         name: 'MaixDock',
@@ -464,7 +464,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/maix-dock'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/maix-dock'
     },
     {
         name: 'Maixduino',
@@ -500,7 +500,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/maixduino'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/maixduino'
     },
     {
         name: 'Raspberry Pi Pico',
@@ -536,7 +536,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/raspberry-pi-pico'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/raspberry-pi-pico'
     },
     {
         name: 'Raspberry Pi Pico W',
@@ -572,7 +572,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/raspberry-pi-picow'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/raspberry-pi-picow'
     },
     {
         name: 'Raspberry Pi Pico 2',
@@ -608,7 +608,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/raspberry-pi-pico2'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/raspberry-pi-pico2'
     },
     {
         name: 'Raspberry Pi Pico 2 W',
@@ -644,7 +644,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/raspberry-pi-pico2w'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/raspberry-pi-pico2w'
     },
     {
         name: 'Micro:bit',
@@ -680,7 +680,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'microPython'],
         tags: ['microPython'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/microbit'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/microbit'
     },
     {
         name: 'Micro:bit V2',
@@ -716,7 +716,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'microPython'],
         tags: ['microPython'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/microbit-v2'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/microbit-v2'
     },
     {
         name: 'Makey Makey',
@@ -752,7 +752,7 @@ const deviceData = [
         programMode: ['upload'],
         programLanguage: ['block', 'c', 'cpp'],
         tags: ['arduino'],
-        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/makeymakey'
+        helpLink: 'https://xpni.cn/docs/general-hardware-guidelines/boards/makeymakey'
     },
     /**
      * For those parent devices that exist in VM but are not displayed in GUI

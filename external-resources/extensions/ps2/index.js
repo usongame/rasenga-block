@@ -21,7 +21,7 @@ const ps2 = formatMessage => ({
     library: 'lib',
     official: true,
     tags: ['communication'],
-    helpLink: 'https://wiki.openblock.cc'
+    helpLink: 'https://xpni.cn/docs'
 });
 
 module.exports = ps2;

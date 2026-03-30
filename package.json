@@ -2,7 +2,7 @@
   "name": "xpni-block",
   "productName": "XpniBlock",
   "description": "OpenBlock as a self-contained desktop application",
-  "author": "Openblock.cc Team <contact@openblock.cc> (http://www.openblock.cc/)",
+  "author": "xpni.cn Team <contact@xpni.cn> (https://xpni.cn/)",
   "version": "2.6.3",
   "license": "MIT",
   "scripts": {

@@ -18,7 +18,7 @@ const nrf24l01 = formatMessage => ({
     library: 'lib',
     official: true,
     tags: ['communication'],
-    helpLink: 'https://wiki.openblock.cc'
+    helpLink: 'https://xpni.cn/docs'
 });
 
 module.exports = nrf24l01;

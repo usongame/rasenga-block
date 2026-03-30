@@ -17,7 +17,7 @@ const openai = formatMessage => ({
     translations: 'translations.js',
     official: true,
     tags: ['other'],
-    helpLink: 'https://wiki.openblock.cc'
+    helpLink: 'https://xpni.cn/docs'
 });
 
 module.exports = openai;
