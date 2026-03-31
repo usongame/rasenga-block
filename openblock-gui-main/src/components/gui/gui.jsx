@@ -33,7 +33,6 @@ import Alerts from '../../containers/alerts.jsx';
 import DragLayer from '../../containers/drag-layer.jsx';
 import ConnectionModal from '../../containers/connection-modal.jsx';
 import UploadProgress from '../../containers/upload-progress.jsx';
-import TelemetryModal from '../telemetry-modal/telemetry-modal.jsx';
 import UpdateModal from '../../containers/update-modal.jsx';
 
 import layout, {STAGE_SIZE_MODES} from '../../lib/layout-constants';
@@ -95,7 +94,6 @@ const GUIComponent = props => {
         isPlayerOnly,
         isRtl,
         isShared,
-        isTelemetryEnabled,
         loading,
         logo,
         renderLogin,
@@ -118,20 +116,15 @@ const GUIComponent = props => {
         onProjectTelemetryEvent,
         onRequestCloseBackdropLibrary,
         onRequestCloseCostumeLibrary,
-        onRequestCloseTelemetryModal,
         onSeeCommunity,
         onShare,
         onShowPrivacyPolicy,
         onStartSelectingFileUpload,
         onShowMessageBox,
-        onTelemetryModalCancel,
-        onTelemetryModalOptIn,
-        onTelemetryModalOptOut,
         showComingSoon,
         soundsTabVisible,
         stageSizeMode,
         targetIsStage,
-        telemetryModalVisible,
         tipsLibraryVisible,
         vm,
         isRealtimeMode,
@@ -179,17 +172,6 @@ const GUIComponent = props => {
                 dir={isRtl ? 'rtl' : 'ltr'}
                 {...componentProps}
             >
-                {telemetryModalVisible ? (
-                    <TelemetryModal
-                        isRtl={isRtl}
-                        isTelemetryEnabled={isTelemetryEnabled}
-                        onCancel={onTelemetryModalCancel}
-                        onOptIn={onTelemetryModalOptIn}
-                        onOptOut={onTelemetryModalOptOut}
-                        onRequestClose={onRequestCloseTelemetryModal}
-                        onShowPrivacyPolicy={onShowPrivacyPolicy}
-                    />
-                ) : null}
                 {loading ? (
                     <Loader />
                 ) : null}
@@ -474,23 +456,18 @@ GUIComponent.propTypes = {
     onOpenRegistration: PropTypes.func,
     onRequestCloseBackdropLibrary: PropTypes.func,
     onRequestCloseCostumeLibrary: PropTypes.func,
-    onRequestCloseTelemetryModal: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onShare: PropTypes.func,
     onShowPrivacyPolicy: PropTypes.func,
     onStartSelectingFileUpload: PropTypes.func,
     onShowMessageBox: PropTypes.func.isRequired,
     onTabSelect: PropTypes.func,
-    onTelemetryModalCancel: PropTypes.func,
-    onTelemetryModalOptIn: PropTypes.func,
-    onTelemetryModalOptOut: PropTypes.func,
     onToggleLoginOpen: PropTypes.func,
     renderLogin: PropTypes.func,
     showComingSoon: PropTypes.bool,
     soundsTabVisible: PropTypes.bool,
     stageSizeMode: PropTypes.oneOf(Object.keys(STAGE_SIZE_MODES)),
     targetIsStage: PropTypes.bool,
-    telemetryModalVisible: PropTypes.bool,
     tipsLibraryVisible: PropTypes.bool,
     vm: PropTypes.instanceOf(VM).isRequired,
     isRealtimeMode: PropTypes.bool

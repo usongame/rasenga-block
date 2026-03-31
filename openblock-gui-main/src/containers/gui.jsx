@@ -21,7 +21,6 @@ import {
 import {
     closeCostumeLibrary,
     closeBackdropLibrary,
-    closeTelemetryModal,
     openExtensionLibrary
 } from '../reducers/modals';
 
@@ -117,7 +116,6 @@ GUI.propTypes = {
     onVmInit: PropTypes.func,
     projectHost: PropTypes.string,
     projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    telemetryModalVisible: PropTypes.bool,
     vm: PropTypes.instanceOf(VM).isRequired,
     isRealtimeMode: PropTypes.bool
 };
@@ -156,7 +154,6 @@ const mapStateToProps = state => {
             state.scratchGui.targets.stage &&
             state.scratchGui.targets.stage.id === state.scratchGui.targets.editingTarget
         ),
-        telemetryModalVisible: state.scratchGui.modals.telemetryModal,
         tipsLibraryVisible: state.scratchGui.modals.tipsLibrary,
         vm: state.scratchGui.vm,
         isRealtimeMode: state.scratchGui.programMode.isRealtimeMode
@@ -170,8 +167,7 @@ const mapDispatchToProps = dispatch => ({
     onActivateCostumesTab: () => dispatch(activateTab(COSTUMES_TAB_INDEX)),
     onActivateSoundsTab: () => dispatch(activateTab(SOUNDS_TAB_INDEX)),
     onRequestCloseBackdropLibrary: () => dispatch(closeBackdropLibrary()),
-    onRequestCloseCostumeLibrary: () => dispatch(closeCostumeLibrary()),
-    onRequestCloseTelemetryModal: () => dispatch(closeTelemetryModal())
+    onRequestCloseCostumeLibrary: () => dispatch(closeCostumeLibrary())
 });
 
 const ConnectedGUI = injectIntl(connect(
