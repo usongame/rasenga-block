@@ -1,0 +1,13 @@
+{
+    "updater": {
+        "default": {
+            "provider": "github",
+            "repo": "openblockcc/external-resources-v3"
+        },
+        "cn": {
+            "provider": "gitee",
+            "repo": "openblockcc/external-resources-v3"
+        }
+    },
+    "version": "x.x.x"
+}

@@ -1,110 +1,255 @@
+# ============================================
 # macOS
+# ============================================
 .DS_Store
 .AppleDouble
 .LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
 
+# ============================================
 # Windows
+# ============================================
 Thumbs.db
+Thumbs.db:encryptable
 desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
 
+# ============================================
+# Linux
+# ============================================
+*~
+.nfs*
+
+# ============================================
 # Node.js
+# ============================================
 node_modules/
 npm-debug.log*
 npm-*.log
 yarn-debug.log*
 yarn-error.log*
 .pnpm-store/
+.pnpm-debug.log*
 
 # Lock files (keep package-lock.json for npm)
 pnpm-lock.yaml
 yarn.lock
 
-# Testing
+# ============================================
+# Testing & Coverage
+# ============================================
 .nyc_output
 coverage/
 .eslintcache
+*.lcov
+lib-cov/
 
+# ============================================
 # Build outputs
+# ============================================
 /build/
 /dist/
 /.opt-in
 *.provisionprofile
 
+# ============================================
 # Downloaded assets (via fetch scripts)
+# ============================================
 /static/
 /tools/
 /firmwares/
 /tmp/
 
+# ============================================
 # Generated translation files
+# ============================================
 /translations/
 /locale/
 
-# IDE
+# ============================================
+# IDE & Editors
+# ============================================
+# VSCode
 .vscode/
+.vscode-test/
+
+# JetBrains
 .idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Vim/Neovim
 *.swp
 *.swo
 *~
+.netrwhist
 
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+
+# ============================================
 # Logs
+# ============================================
 logs/
 *.log
 
+# ============================================
 # Compiled binary addons
+# ============================================
 build/Release/
 
+# ============================================
 # Dependency directories
+# ============================================
 jspm_packages/
+bower_components/
+web_modules/
 
-# Optional npm cache directory
+# ============================================
+# npm cache
+# ============================================
 .npm
 
-# Optional REPL history
+# ============================================
+# REPL history
+# ============================================
 .node_repl_history
 
-# Output of 'npm pack'
+# ============================================
+# npm pack output
+# ============================================
 *.tgz
 
-# Yarn Integrity file
+# ============================================
+# Yarn
+# ============================================
 .yarn-integrity
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
 
-# parcel-bundler cache
+# ============================================
+# Parcel
+# ============================================
 .cache/
 .parcel-cache/
 
-# Next.js build output
+# ============================================
+# Next.js
+# ============================================
 .next/
 
-# Nuxt.js build output
+# ============================================
+# Nuxt.js
+# ============================================
 .nuxt/
 
-# VuePress build output
+# ============================================
+# VuePress
+# ============================================
 .vuepress/dist
 
-# Serverless directories
+# ============================================
+# Serverless
+# ============================================
 .serverless/
 
-# FuseBox cache
+# ============================================
+# FuseBox
+# ============================================
 .fusebox/
 
-# DynamoDB Local files
+# ============================================
+# DynamoDB Local
+# ============================================
 .dynamodb/
 
-# TernJS port file
+# ============================================
+# TernJS
+# ============================================
 .tern-port
 
-# VSCode testing
-.vscode-test/
+# ============================================
+# TypeScript
+# ============================================
+*.tsbuildinfo
 
+# ============================================
+# Microbundle
+# ============================================
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# ============================================
+# Gatsby
+# ============================================
+public/
+
+# ============================================
+# Storybook
+# ============================================
+.out/
+.storybook-out/
+
+# ============================================
 # Temporary folders
+# ============================================
 tmp/
 temp/
 
-# Zip files
-*.zip
+# ============================================
+# Runtime data
+# ============================================
+pids/
+*.pid
+*.seed
+*.pid.lock
 
+# ============================================
+# Grunt
+# ============================================
+.grunt
+
+# ============================================
+# node-waf
+# ============================================
+.lock-wscript
+
+# ============================================
+# Zip files
+# ============================================
+*.zip
+*.tar.gz
+*.rar
+
+# ============================================
 # Electron specific
+# ============================================
 out/
 release/
 *.app
@@ -115,64 +260,47 @@ release/
 *.snap
 *.AppImage
 
+# Electron Builder
+app-update.yml
+electron-builder-effective-config.yaml
+latest-mac.yml
+latest-linux.yml
+latest-linux-arm64.yml
+latest.yml
+
+# ============================================
 # Local environment files
+# ============================================
 .env
 .env.local
 .env.*.local
+.env.development
+.env.test
+.env.production
 
+# ============================================
 # Cache files
+# ============================================
 *.cache
+.cache/
 
+# ============================================
 # Debug files
+# ============================================
 *.pid
 *.seed
 *.pid.lock
 
-# Coverage
-*.lcov
-
-# Grunt intermediate storage
-.grunt
-
-# Bower dependency directory
-bower_components/
-
-# node-waf configuration
-.lock-wscript
-
-# Snowpack dependency directory
-web_modules/
-
-# TypeScript cache
-*.tsbuildinfo
-
-# Microbundle cache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# Gatsby files
-public/
-
-# Storybook build outputs
-.out/
-.storybook-out/
-
-# Runtime data
-pids/
-
-# Directory for instrumented libs
-lib-cov/
-
-# yarn v2
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnp.*
-
-# Project specific - external-resources now included for custom extensions
+# ============================================
+# Project specific
+# ============================================
+# external-resources now included for custom extensions
 # external-resources/
 # drivers/  # Now tracked for driver installation scripts
 # install.sh  # Now tracked in drivers folder
+
+# Build scripts output
+build-*.log
+
+# Local development files
+*.local

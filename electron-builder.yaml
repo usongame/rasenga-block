@@ -40,6 +40,7 @@ mac:
 dmg:
   title: "象皮泥_${version}"
   format: UDRO
+  artifactName: "象皮泥_v${version}_mac_${arch}.${ext}"
 # mas:
 #   category: public.app-category.education
 #   entitlements: buildResources/entitlements.mas.plist

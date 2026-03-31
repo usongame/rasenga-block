@@ -3,7 +3,7 @@
   "productName": "象皮泥",
   "description": "OpenBlock as a self-contained desktop application",
   "author": "xpni.cn Team <contact@xpni.cn> (https://xpni.cn/)",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "license": "MIT",
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
