@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  build-windows:
+    build:
+      context: .
+      dockerfile: Dockerfile.windows
+    volumes:
+      - ./dist:/app/dist
+    environment:
+      - NODE_ENV=production
+      - ELECTRON_CACHE=/root/.cache/electron
+      - ELECTRON_BUILDER_CACHE=/root/.cache/electron-builder

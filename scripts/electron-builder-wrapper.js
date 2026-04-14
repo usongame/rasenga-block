@@ -149,12 +149,13 @@ const calculateTargets = function (wrapperConfig) {
         } else {
             console.log(`skipping target "${availableTargets.macAppStoreDev.name}": ${masDevProfile} missing`);
         }
-        if (wrapperConfig.doSign) {
-            targets.push(availableTargets.macAppStore);
-        } else {
-            // electron-builder doesn't seem to support this configuration even if mac.type is "development"
-            console.log(`skipping target "${availableTargets.macAppStore.name}" because code-signing is disabled`);
-        }
+        // 跳过 MAS 构建，只构建 DMG
+        // if (wrapperConfig.doSign) {
+        //     targets.push(availableTargets.macAppStore);
+        // } else {
+        //     // electron-builder doesn't seem to support this configuration even if mac.type is "development"
+        //     console.log(`skipping target "${availableTargets.macAppStore.name}" because code-signing is disabled`);
+        // }
         targets.push(availableTargets.macDirectDownload);
         break;
     case 'linux':

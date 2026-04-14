@@ -1,7 +1,22 @@
 directories:
   buildResources: buildResources
   output: dist
-extraFiles: ['LICENSE', 'LICENSE.ScratchFoundation', 'TRADEMARK', "tools", "external-resources", 'firmwares', "drivers"]
+
+extraFiles:
+  - from: "LICENSE"
+    to: "Resources/LICENSE"
+  - from: "LICENSE.ScratchFoundation"
+    to: "Resources/LICENSE.ScratchFoundation"
+  - from: "TRADEMARK"
+    to: "Resources/TRADEMARK"
+  - "tools"
+  - "external-resources"
+  - "firmwares"
+  - "drivers"
+
+# Disable native dependency rebuild
+npmRebuild: false
+buildDependenciesFromSource: false
 
 # Ensure all dependencies are included in the app
 files:
@@ -26,6 +41,7 @@ compression: maximum
 mac:
   category: public.app-category.education
   entitlements: buildResources/entitlements.mac.plist
+  entitlementsInherit: buildResources/entitlements.mac.plist
   extendInfo:
     NSCameraUsageDescription: >-
         This app requires camera access when using the video sensing blocks.
@@ -34,6 +50,11 @@ mac:
   gatekeeperAssess: true
   hardenedRuntime: true
   icon: buildResources/OpenBlockDesktop.icns
+  identity: "Xuzhou Uson Information Technology Co.Ltd. (MUY7948Q2K)"
+  signIgnore:
+    - "LICENSE"
+    - "LICENSE.ScratchFoundation"
+    - "TRADEMARK"
   target:
     - dmg
     # - mas

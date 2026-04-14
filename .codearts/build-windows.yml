@@ -1,0 +1,57 @@
+# 华为云 CodeArts 构建配置
+# 用于构建 Windows 版本的 Electron 应用
+
+version: 2.0
+
+# 构建任务名称
+name: build-windows-exe
+
+# 构建环境
+environment:
+  os: windows
+
+# 构建步骤
+steps:
+  - name: checkout
+    uses: checkout@v2
+
+  - name: install-nodejs
+    run: |
+      choco install nodejs-lts --version=16.20.2 -y
+      refreshenv
+      node --version
+      npm --version
+
+  - name: install-dependencies
+    run: |
+      cd xpniblock-desktop
+      npm ci
+
+  - name: compile
+    run: |
+      cd xpniblock-desktop
+      npm run compile
+
+  - name: fetch-resources
+    run: |
+      cd xpniblock-desktop
+      npm run fetch:all
+    env:
+      NODE_ENV: production
+      NODE_OPTIONS: --max_old_space_size=4096
+
+  - name: build-windows
+    run: |
+      cd xpniblock-desktop
+      npm run doBuild -- --mode=dist
+    env:
+      NODE_ENV: production
+      NODE_OPTIONS: --max_old_space_size=4096
+      CSC_IDENTITY_AUTO_DISCOVERY: false
+
+  - name: upload-artifacts
+    uses: upload-artifact@v2
+    with:
+      name: windows-exe-files
+      path: xpniblock-desktop/dist/*.exe
+      retention-days: 30

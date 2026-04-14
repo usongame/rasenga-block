@@ -1,0 +1,60 @@
+# 华为云 CodeArts 原生构建脚本
+# 注意：这不是 GitHub Actions 格式，是华为云特有格式
+
+stages:
+  - stage:
+      name: "build-stage"
+      jobs:
+        - job:
+            name: "build-windows-exe"
+            runs-on: windows-latest
+            steps:
+              - step:
+                  name: "checkout"
+                  uses: checkout@v2
+
+              - step:
+                  name: "install-nodejs"
+                  run: |
+                    choco install nodejs-lts --version=16.20.2 -y
+                    refreshenv
+                    node --version
+                    npm --version
+
+              - step:
+                  name: "install-dependencies"
+                  run: |
+                    cd xpniblock-desktop
+                    npm ci
+
+              - step:
+                  name: "compile"
+                  run: |
+                    cd xpniblock-desktop
+                    npm run compile
+
+              - step:
+                  name: "fetch-resources"
+                  run: |
+                    cd xpniblock-desktop
+                    npm run fetch:all
+                  env:
+                    NODE_ENV: production
+                    NODE_OPTIONS: --max_old_space_size=4096
+
+              - step:
+                  name: "build-windows"
+                  run: |
+                    cd xpniblock-desktop
+                    npm run doBuild -- --mode=dist
+                  env:
+                    NODE_ENV: production
+                    NODE_OPTIONS: --max_old_space_size=4096
+                    CSC_IDENTITY_AUTO_DISCOVERY: false
+
+              - step:
+                  name: "upload-artifacts"
+                  uses: upload-artifact@v2
+                  with:
+                    name: windows-exe-files
+                    path: xpniblock-desktop/dist/*.exe
