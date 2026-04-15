@@ -10,6 +10,9 @@ on:
       - 'doc/*'
       - '.github/*'
 
+permissions:
+  contents: write
+
 jobs:
   create-release:
     runs-on: ubuntu-24.04
@@ -22,12 +25,10 @@ jobs:
 
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
-          release_name: OpenBlock Desktop ${{ steps.tag.outputs.tag }}
+          name: Rasenga Block ${{ steps.tag.outputs.tag }}
           body: |
             ## Change Log (en)
 
@@ -75,7 +76,7 @@ jobs:
       - name: Build and Publish
         env:
           GA_ID: ${{ secrets.GA_ID }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_ENV: production
           NODE_OPTIONS: --max_old_space_size=4096
         run: npm run publish
@@ -105,7 +106,7 @@ jobs:
       - name: Build
         env:
           GA_ID: ${{ secrets.GA_ID }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_ENV: production
           NODE_OPTIONS: --max_old_space_size=8192
           CSC_IDENTITY_AUTO_DISCOVERY: false
@@ -164,7 +165,7 @@ jobs:
         # https://github.com/electron-userland/electron-builder/issues/8456
         run: |
           sed -i '/if\s*(\s*result\.status\s*)\s*{/a\
-          \ \ \ \ if (target.platform === '\''linux'\'' && result.status === 1) {\n\
+          \ \ \ \ if (target.platform === '\''linux'\'' \&\& result.status === 1) {\n\
           \ \ \ \ \ \ \ \ return; // ignore error on linux\n\
           \ \ \ \ }
           ' scripts/electron-builder-wrapper.js
@@ -172,7 +173,7 @@ jobs:
       - name: Build and Publish
         env:
           GA_ID: ${{ secrets.GA_ID }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_ENV: production
           NODE_OPTIONS: --max_old_space_size=8192
           CSC_IDENTITY_AUTO_DISCOVERY: false
